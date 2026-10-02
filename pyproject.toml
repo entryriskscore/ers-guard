@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ers-guard"
+version = "0.1.1"
+description = "Entry-risk check for trading bots, built on the Entry Risk Score API. Not a signal."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.9"
+authors = [{ name = "Entry Risk Score" }]
+keywords = ["binance", "futures", "risk", "trading-bot", "freqtrade", "ccxt", "mcp"]
+classifiers = [
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Operating System :: OS Independent",
+  "Topic :: Office/Business :: Financial :: Investment",
+]
+dependencies = []
+
+[project.optional-dependencies]
+certifi = ["certifi"]
+
+[project.urls]
+Homepage = "https://entryriskscore.com"
+Documentation = "https://entryriskscore.com/docs"
+
+[project.scripts]
+ers-guard = "ers_guard.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
