@@ -1,3 +1,4 @@
+<p align="center"><img src="ers-guard-readme-banner-1280x320.png" alt="ERS Guard" width="100%"></p>
 # ERS Guard
 
 [![tests](https://github.com/entryriskscore/ers-guard/actions/workflows/tests.yml/badge.svg)](https://github.com/entryriskscore/ers-guard/actions/workflows/tests.yml)
