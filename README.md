@@ -1,8 +1,23 @@
-<p align="center"><img src="ers-guard-readme-banner-1280x320.png" alt="ERS Guard" width="100%"></p>
-# ERS Guard
+<p align="center">
+  <img src="ers-guard-readme-banner-1280x320.png" alt="ERS Guard — an entry-risk check for any trading bot" width="100%">
+</p>
 
-[![tests](https://github.com/entryriskscore/ers-guard/actions/workflows/tests.yml/badge.svg)](https://github.com/entryriskscore/ers-guard/actions/workflows/tests.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+<p align="center">
+  <a href="https://github.com/entryriskscore/ers-guard/actions/workflows/tests.yml"><img src="https://github.com/entryriskscore/ers-guard/actions/workflows/tests.yml/badge.svg" alt="tests"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
+  <img src="https://img.shields.io/badge/python-3.9%E2%80%933.13-informational" alt="Python 3.9–3.13">
+  <img src="https://img.shields.io/badge/os-Linux%20%7C%20Windows%20%7C%20macOS-informational" alt="Linux | Windows | macOS">
+</p>
+
+<p align="center">
+  <a href="https://entryriskscore.com">Website</a> ·
+  <a href="https://entryriskscore.com/docs">Docs</a> ·
+  <a href="https://entryriskscore.com/docs/mcp">MCP</a> ·
+  <a href="https://entryriskscore.com/api/v1/openapi.json">OpenAPI</a> ·
+  <a href="https://entryriskscore.com/try">Free 7-day trial</a>
+</p>
+
+# ERS Guard
 
 **Add an entry-risk check to your bot in 3 lines.** ERS Guard asks the
 [Entry Risk Score](https://entryriskscore.com) API one question before your bot opens a position:
@@ -107,6 +122,34 @@ Snippets: [`examples/sidecar_curl.sh`](examples/sidecar_curl.sh), [`examples/go/
   if (await guard.allowEntry('ETH/USDT:USDT', 'LONG', { block: ['HIGH'] })) { /* your order */ }
   ```
 - Symbols such as `ETH/USDT:USDT`, `ETH/USDT`, `ETH-USDT-SWAP`, `ETH_USDT`, `ETHUSDT.P` are normalised to `ETHUSDT`.
+
+## Using an AI coding assistant?
+
+Paste one of these into Claude Code, Cursor, Codex, Windsurf, Antigravity or any other assistant.
+
+**Add Guard to a Python bot**
+```text
+Add an entry-risk check to my trading bot using ERS Guard (https://github.com/entryriskscore/ers-guard).
+First read https://entryriskscore.com/llms.txt and this repository's README.
+Rules: read the API key from the ERS_API_KEY environment variable and never hard-code it;
+call guard.allow_entry(symbol, side, block={"HIGH"}) right before opening a position and never before closing one;
+keep my strategy logic unchanged; ask me whether UNKNOWN should allow or block entries;
+add a short test with a fake response. It is a risk check, not a trading signal — say so in a code comment.
+```
+
+**Add Guard to a Freqtrade strategy**
+```text
+Add ERS Guard (https://github.com/entryriskscore/ers-guard) to my Freqtrade strategy using the mixin in
+integrations/freqtrade. Read the README first. Use confirm_trade_entry only (never block exits), read the key from
+ERS_API_KEY, keep my indicators and signals unchanged, ask me about the UNKNOWN policy, and show me how to dry-run it.
+```
+
+**Add Guard to a Node.js bot**
+```text
+Add an entry-risk check to my Node.js bot with js/ers-guard.js from https://github.com/entryriskscore/ers-guard
+(Node 18+, no dependencies). Read the README first. Read the key from process.env.ERS_API_KEY, check right before
+opening a position (never before closing), respect the 5-minute cache, ask me about the UNKNOWN policy, add a small test.
+```
 
 ## FAQ
 
