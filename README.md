@@ -59,11 +59,11 @@ if guard.allow_entry("ETHUSDT", "LONG", block={"HIGH"}):   # your policy, not ou
 | `HIGH` | Risk Score 80/100 or above: the coin's own riskiest 20% of moments |
 | `ELEVATED` | Risk Score 60–79 |
 | `NORMAL` | Risk Score below 60 (not HIGH does not mean low risk) |
-| `MEASURING` | this side × holding period is not scored yet (SHORT for 8 h and 24 h) |
+| `MEASURING` | this side × holding period is not scored yet (reserved; since score v1.1 every side and holding period is scored) |
 | `UNKNOWN` | no current answer: data older than 12 minutes, the API unreachable, a key problem, WARMING or STALE coin |
 | `NOT_COVERED` | the symbol is not in your key's plan (trial: BTC, ETH, SOL, XRP, BNB, DOGE, ADA, LINK, AVAX, NEAR) or not a USDT-M perpetual |
 
-**Risk Score N/100** = riskier to enter than N% of that coin's own moments (history up to 30 days). **Not a probability.**
+**Risk Score N/100** = riskier to enter than N% of that coin's own moments over the last 90 days (score v1.1). **Not a probability.** Tested on Jan–Sep 2026 history: see [entryriskscore.com/evidence](https://entryriskscore.com/evidence).
 Holding periods: `60m` (adverse move 1%), `8h` (2%), `24h` (3%).
 
 `Result` fields: `symbol, side, hold, level, score, base_rate, as_of, next_update_at, stale, reason, drivers, raw`.
