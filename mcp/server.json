@@ -1,0 +1,22 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.entryriskscore/entry-risk-score",
+  "title": "Entry Risk Score",
+  "description": "Entry-risk score for Binance USDT-M perpetuals: how risky is entering now. Not a signal.",
+  "version": "1.0.0",
+  "websiteUrl": "https://entryriskscore.com/docs/mcp",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://entryriskscore.com/api/v1/mcp",
+      "headers": [
+        {
+          "name": "X-API-Key",
+          "description": "Entry Risk Score API key (starts with ers_). Create one in the dashboard under API & MCP; 7-day trial keys work.",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}

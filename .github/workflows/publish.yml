@@ -1,0 +1,52 @@
+# Publishes the Python package to PyPI when a version tag (v0.1.2, v0.2.0 ...) is pushed.
+# Trusted publishing (OpenID Connect): no API token is stored anywhere. The PyPI project trusts
+# exactly this repository, this workflow file name (publish.yml) and the environment "pypi".
+name: publish
+on:
+  push:
+    tags: ["v*"]
+permissions:
+  contents: read
+jobs:
+  build:
+    name: Test and build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: The tag must equal the package version
+        run: |
+          VERSION="$(python -c "import re; print(re.search(r'(?m)^version = \"([^\"]+)\"', open('pyproject.toml').read()).group(1))")"
+          echo "pyproject version: ${VERSION} / tag: ${GITHUB_REF_NAME}"
+          test "v${VERSION}" = "${GITHUB_REF_NAME}"
+      - name: Unit tests (local fake API, no secrets, no network)
+        run: python -m unittest discover -s tests
+      - name: Build the wheel and the source archive
+        run: |
+          python -m pip install build twine
+          python -m build
+          python -m twine check --strict dist/*
+      - uses: actions/upload-artifact@v5
+        with:
+          name: dist
+          path: dist/
+          if-no-files-found: error
+  pypi:
+    name: Publish to PyPI
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/ers-guard
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v6
+        with:
+          name: dist
+          path: dist/
+      - uses: pypa/gh-action-pypi-publish@release/v1

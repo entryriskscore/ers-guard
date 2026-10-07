@@ -1,19 +1,22 @@
 [build-system]
-requires = ["setuptools>=61"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "ers-guard"
-version = "0.1.1"
+version = "0.1.2"
 description = "Entry-risk check for trading bots, built on the Entry Risk Score API. Not a signal."
 readme = "README.md"
-license = { text = "MIT" }
+license = "MIT"
+license-files = ["LICENSE"]
 requires-python = ">=3.9"
 authors = [{ name = "Entry Risk Score" }]
 keywords = ["binance", "futures", "risk", "trading-bot", "freqtrade", "ccxt", "mcp"]
 classifiers = [
-  "License :: OSI Approved :: MIT License",
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
   "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
   "Operating System :: OS Independent",
   "Topic :: Office/Business :: Financial :: Investment",
 ]
@@ -24,7 +27,10 @@ certifi = ["certifi"]
 
 [project.urls]
 Homepage = "https://entryriskscore.com"
-Documentation = "https://entryriskscore.com/docs"
+Documentation = "https://entryriskscore.com/docs/guard"
+Repository = "https://github.com/entryriskscore/ers-guard"
+Changelog = "https://github.com/entryriskscore/ers-guard/blob/main/CHANGELOG.md"
+Issues = "https://github.com/entryriskscore/ers-guard/issues"
 
 [project.scripts]
 ers-guard = "ers_guard.cli:main"

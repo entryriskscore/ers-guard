@@ -7,7 +7,7 @@
 
 Guard reports a measurement; it is not a signal and decides nothing for you.
 """
-__version__ = '0.1.1'
+__version__ = '0.1.2'
 
 from .guard import HOLDS, NOTICE, ApiError, Guard, Result  # noqa: E402
 from .symbols import normalize_symbol  # noqa: E402

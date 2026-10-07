@@ -1,10 +1,11 @@
 <p align="center">
-  <img src="ers-guard-readme-banner-1280x320.png" alt="ERS Guard — an entry-risk check for any trading bot" width="100%">
+  <img src="https://raw.githubusercontent.com/entryriskscore/ers-guard/main/ers-guard-readme-banner-1280x320.png" alt="ERS Guard — an entry-risk check for any trading bot" width="100%">
 </p>
 
 <p align="center">
   <a href="https://github.com/entryriskscore/ers-guard/actions/workflows/tests.yml"><img src="https://github.com/entryriskscore/ers-guard/actions/workflows/tests.yml/badge.svg" alt="tests"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
+  <a href="https://pypi.org/project/ers-guard/"><img src="https://img.shields.io/pypi/v/ers-guard" alt="PyPI"></a>
+  <a href="https://github.com/entryriskscore/ers-guard/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
   <img src="https://img.shields.io/badge/python-3.9%E2%80%933.13-informational" alt="Python 3.9–3.13">
   <img src="https://img.shields.io/badge/os-Linux%20%7C%20Windows%20%7C%20macOS-informational" alt="Linux | Windows | macOS">
 </p>
@@ -34,8 +35,8 @@ never changes your bot's logic. You decide what a HIGH level means for your entr
 ## Quickstart
 
 ```bash
-pip install git+https://github.com/entryriskscore/ers-guard     # or copy src/ers_guard into your project
-export ERS_API_KEY=ers_...                                       # dashboard → API & MCP (trial keys work)
+pip install ers-guard                    # Python 3.9+, no dependencies (or copy src/ers_guard into your project)
+export ERS_API_KEY=ers_...               # dashboard → API & MCP (trial keys work)
 ```
 
 ```python
@@ -104,18 +105,19 @@ ers-guard serve --port 8787 --file ers_state.json                 # local sideca
   file open blocks the update. The sidecar then retries, keeps the previous file and counts the miss in
   `/health` (`file_write_failures`); it never stops answering HTTP.
 
-Snippets: [`examples/sidecar_curl.sh`](examples/sidecar_curl.sh), [`examples/go/main.go`](examples/go/main.go),
-[`examples/csharp/Program.cs`](examples/csharp/Program.cs).
+Snippets: [`examples/sidecar_curl.sh`](https://github.com/entryriskscore/ers-guard/blob/main/examples/sidecar_curl.sh),
+[`examples/go/main.go`](https://github.com/entryriskscore/ers-guard/blob/main/examples/go/main.go),
+[`examples/csharp/Program.cs`](https://github.com/entryriskscore/ers-guard/blob/main/examples/csharp/Program.cs).
 
 ## Integrations
 
-- **Freqtrade** — [`integrations/freqtrade`](integrations/freqtrade): `ErsGuardMixin` adds the check to
+- **Freqtrade** — [`integrations/freqtrade`](https://github.com/entryriskscore/ers-guard/tree/main/integrations/freqtrade): `ErsGuardMixin` adds the check to
   `confirm_trade_entry` (entries only; exits are never blocked) and an example strategy.
-- **Hummingbot** — [`integrations/hummingbot/guarded_order_script.py`](integrations/hummingbot/guarded_order_script.py):
+- **Hummingbot** — [`integrations/hummingbot/guarded_order_script.py`](https://github.com/entryriskscore/ers-guard/blob/main/integrations/hummingbot/guarded_order_script.py):
   checks before placing an order.
-- **ccxt** — [`integrations/ccxt/guarded.py`](integrations/ccxt/guarded.py): `guarded_create_order(exchange, symbol,
+- **ccxt** — [`integrations/ccxt/guarded.py`](https://github.com/entryriskscore/ers-guard/blob/main/integrations/ccxt/guarded.py): `guarded_create_order(exchange, symbol,
   type, side, amount, price, params)`; `reduceOnly` orders pass through.
-- **JavaScript / TypeScript (Node 18+)** — [`js/ers-guard.js`](js/ers-guard.js): same caching rules, no dependencies.
+- **JavaScript / TypeScript (Node 18+)** — [`js/ers-guard.js`](https://github.com/entryriskscore/ers-guard/blob/main/js/ers-guard.js): same caching rules, no dependencies.
   ```js
   const { ErsGuard } = require('./js/ers-guard.js');
   const guard = new ErsGuard();                  // ERS_API_KEY from the environment
@@ -169,10 +171,15 @@ With your own key: `python tools/live_check.py --key-file path/to/key.txt`.
 Docs: https://entryriskscore.com/docs · API reference: https://entryriskscore.com/docs/api ·
 MCP for AI agents: https://entryriskscore.com/docs/mcp
 
+**Hosted MCP server.** `https://entryriskscore.com/api/v1/mcp` (Streamable HTTP, the same API key in an
+`X-API-Key` or `Authorization: Bearer` header, four read-only tools). MCP Registry name:
+`io.github.entryriskscore/entry-risk-score`; its entry is [`mcp/server.json`](https://github.com/entryriskscore/ers-guard/blob/main/mcp/server.json).
+
 ## Data Notice
 
 Entry Risk Score is a data service that measures entry-timing risk on Binance USDT-M futures. It is not a signal, not
 investment advice, and makes no promise of returns. Published rates describe the past and do not guarantee future
 results. You are solely responsible for your trading decisions.
 
-MIT licensed. See [LICENSE](LICENSE), [SECURITY.md](SECURITY.md), [CONTRIBUTING.md](CONTRIBUTING.md).
+MIT licensed. See [LICENSE](https://github.com/entryriskscore/ers-guard/blob/main/LICENSE), [SECURITY.md](https://github.com/entryriskscore/ers-guard/blob/main/SECURITY.md),
+[CONTRIBUTING.md](https://github.com/entryriskscore/ers-guard/blob/main/CONTRIBUTING.md).

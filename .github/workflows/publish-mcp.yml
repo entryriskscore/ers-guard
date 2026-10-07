@@ -1,0 +1,36 @@
+# Publishes mcp/server.json (the hosted MCP server's entry) to the official MCP Registry when a tag
+# such as mcp-v1.0.0 is pushed. GitHub OIDC: no token is stored; the registry grants this repository
+# the io.github.entryriskscore/* names. A published version cannot be changed: to update the entry,
+# raise "version" in mcp/server.json and push the matching mcp-v<version> tag.
+name: publish-mcp
+on:
+  push:
+    tags: ["mcp-v*"]
+permissions:
+  contents: read
+jobs:
+  registry:
+    name: Publish to the MCP Registry
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: The tag must equal the server.json version
+        run: |
+          VERSION="$(jq -r .version mcp/server.json)"
+          echo "server.json version: ${VERSION} / tag: ${GITHUB_REF_NAME}"
+          test "mcp-v${VERSION}" = "${GITHUB_REF_NAME}"
+      - name: Install mcp-publisher
+        run: |
+          curl -fsSL "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_linux_amd64.tar.gz" | tar xz mcp-publisher
+          ./mcp-publisher --help | head -n 1
+      - name: Validate
+        run: ./mcp-publisher validate mcp/server.json
+      - name: Authenticate (GitHub OIDC)
+        run: ./mcp-publisher login github-oidc
+      - name: Publish
+        run: ./mcp-publisher publish mcp/server.json
